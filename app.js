@@ -30,7 +30,7 @@ app.get('/numbers', async (req, res) => {
           }
         }
       } catch (error) {
-       
+       console.error('Error fetching data:', error.message);
       }
     }));
     const sortedNumbers = Array.from(uniqueNumbers).sort((a, b) => a - b);

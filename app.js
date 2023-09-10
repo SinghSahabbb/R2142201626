@@ -1,9 +1,8 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const port = 8008;
+const port = 8007;
 
-// Middleware to limit request time to 500 milliseconds
 app.use((req, res, next) => {
   req.setTimeout(500);
   res.setTimeout(500);
@@ -20,7 +19,6 @@ app.get('/numbers', async (req, res) => {
   const uniqueNumbers = new Set();
 
   try {
-    // Fetch data from each URL in parallel
     const responses = await Promise.all(urls.map(async (url) => {
       try {
         const response = await axios.get(url);
@@ -28,16 +26,13 @@ app.get('/numbers', async (req, res) => {
           const data = response.data;
 
           if (data && Array.isArray(data.numbers)) {
-            // Add unique numbers to the set
             data.numbers.forEach((number) => uniqueNumbers.add(number));
           }
         }
       } catch (error) {
-        // Ignore errors for individual URLs
+       
       }
     }));
-
-    // Convert the set of unique numbers to an array and sort it
     const sortedNumbers = Array.from(uniqueNumbers).sort((a, b) => a - b);
 
     res.json({ numbers: sortedNumbers });

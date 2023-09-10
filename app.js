@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const port = 8007;
+const port = 7006;
 
 app.use((req, res, next) => {
   req.setTimeout(500);
